@@ -8,7 +8,9 @@ const getContactsList = async (req, res) => {
 };
 
 const getContactById = async (req, res) => {
-  const contactById = await Contact.findOne({ _id: req.params.id });
+  
+  const contactById = await Contact.findById(req.params.id);
+
   if (!contactById) {
     throw errorHandler(404, 'Not found');
   }
@@ -40,7 +42,11 @@ const updateContact = async (req, res) => {
   res.status(200).json(updatedContact);
 };
 
-const updatePhone = async (req, res) => {
+const updateFavorite = async (req, res) => {
+  if (req.body?.favorite === undefined) {
+    throw errorHandler(400, 'missing field favorite');
+  }
+
   const updatedContact = await Contact.findByIdAndUpdate(req.params.id, req.body, { new: true });
 
   if (!updatedContact) {
@@ -56,5 +62,5 @@ module.exports = {
   addContact: ctrlWrapper(addContact),
   removeContact: ctrlWrapper(removeContact),
   updateContact: ctrlWrapper(updateContact),
-  updatePhone: ctrlWrapper(updatePhone),
+  updateFavorite: ctrlWrapper(updateFavorite),
 };

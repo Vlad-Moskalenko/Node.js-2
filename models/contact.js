@@ -7,36 +7,34 @@ const schema = Joi.object({
   name: Joi.string().required(),
   email: Joi.string().required(),
   phone: Joi.string().required(),
+  favorite: Joi.boolean(),
 });
 
-const updatePhoneSchema = Joi.object({
-  phone: Joi.string().required(),
+const updateFavoriteSchema = Joi.object({
+  favorite: Joi.boolean(),
 });
 
 const schemas = {
+  updateFavoriteSchema,
   schema,
-  updatePhoneSchema,
 };
 
-const contactSchema = new Schema(
-  {
-    name: {
-      type: String,
-      required: true,
-    },
-    email: {
-      type: String,
-      required: true,
-      // match
-    },
-    phone: {
-      type: String,
-      required: true,
-      // match
-    },
+const contactSchema = new Schema({
+  name: {
+    type: String,
+    required: [true, 'Set name for contact'],
   },
-  { versionKey: false, timestamps: true }
-);
+  email: {
+    type: String,
+  },
+  phone: {
+    type: String,
+  },
+  favorite: {
+    type: Boolean,
+    default: false,
+  },
+});
 
 contactSchema.post('save', handleMongooseError);
 
