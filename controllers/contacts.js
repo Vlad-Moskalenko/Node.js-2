@@ -1,4 +1,4 @@
-const { Contact } = require('../models/contacts');
+const { Contact } = require('../models/contact');
 const errorHandler = require('../helpers/errorHandler');
 const ctrlWrapper = require('../helpers/ctrlWrapper');
 
@@ -41,7 +41,7 @@ const updateContact = async (req, res) => {
 };
 
 const updateFavorite = async (req, res) => {
-  if (!req.body.favorite) {
+  if (req.body?.favorite === undefined) {
     throw errorHandler(400, 'missing field favorite');
   }
 

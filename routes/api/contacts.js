@@ -4,7 +4,7 @@ const controllers = require('../../controllers/contacts');
 
 const { validateBody } = require('../../middlewares');
 const { isValidId } = require('../../middlewares');
-const { schemas } = require('../../models/contacts');
+const { schemas } = require('../../models/contact');
 
 router.get('/', controllers.getContactsList);
 
@@ -16,6 +16,10 @@ router.delete('/:id', isValidId, controllers.removeContact);
 
 router.put('/:id', isValidId, validateBody(schemas.schema), controllers.updateContact);
 
-router.patch('/:id/favorite', validateBody(schemas.updateFavorite), controllers.updateFavorite);
+router.patch(
+  '/:id/favorite',
+  validateBody(schemas.updateFavoriteSchema),
+  controllers.updateFavorite
+);
 
 module.exports = router;
