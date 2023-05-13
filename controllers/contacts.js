@@ -8,7 +8,9 @@ const getContactsList = async (req, res) => {
 };
 
 const getContactById = async (req, res) => {
+  
   const contactById = await Contact.findById(req.params.id);
+
   if (!contactById) {
     throw errorHandler(404, 'Not found');
   }
