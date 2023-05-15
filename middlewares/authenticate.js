@@ -20,7 +20,7 @@ const authenticate = async (req, res, next) => {
 
       const user = await User.findById(id);
 
-      if (!user) {
+      if (!user || !user.token || user.token !== token) {
         next(errorHandler(401));
       }
       req.user = user;
