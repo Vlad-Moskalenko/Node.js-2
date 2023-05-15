@@ -23,7 +23,7 @@ const authenticate = async (req, res, next) => {
       if (!user) {
         next(errorHandler(401));
       }
-
+      req.user = user;
       next();
     }
   } catch {
