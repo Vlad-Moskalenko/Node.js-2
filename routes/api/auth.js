@@ -7,6 +7,10 @@ const ctrl = require('../../controllers/auth');
 
 router.post('/register', validateBody(schemas.registerSchema), ctrl.register);
 
+router.get('/verify/:verificationCode', ctrl.verifyEmail);
+
+router.post('/verify', validateBody(schemas.verifyEmail), ctrl.verify);
+
 router.post('/login', validateBody(schemas.loginSchema), ctrl.login);
 
 router.post('/current', authenticate, ctrl.getCurrent);
